@@ -5,7 +5,8 @@ from helpers import download_file, retrieve_url
 from novaprinter import prettyPrinter
 import json
 from urllib.parse import unquote
-import cfscrape #bypass cf cookie (need https://pypi.org/project/cfscrape and nodejs installed)
+#import cfscrape #bypass cf cookie (need https://pypi.org/project/cfscrape and nodejs installed)
+import requests
 
 class corsarored(object):
     url = 'https://corsaro.red/'
@@ -16,11 +17,12 @@ class corsarored(object):
 
     def search(self, what, cat):
         try:
-            scraper = cfscrape.create_scraper()
+            #scraper = cfscrape.create_scraper()
             for page in range(1,self.limit):
                 data = {"term":unquote(what),"category": self.supported_categories[cat],"page":page}
-                jsonresult = scraper.post(self.searchurl,data).content.decode('utf-8')
-                json_object = json.loads(jsonresult)
+                #jsonresult = scraper.post(self.searchurl,data).content.decode('utf-8')
+                json_object = requests.post(url=self.searchurl, data=data).json()
+                #json_object = json.loads(jsonresult)
                 nitems = len(json_object['results'])
                 if nitems == 0:
                     break
