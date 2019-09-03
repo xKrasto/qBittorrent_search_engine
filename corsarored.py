@@ -4,7 +4,7 @@
 from helpers import download_file, retrieve_url
 from novaprinter import prettyPrinter
 import json
-from urllib.parse import unquote
+from urllib import unquote
 #import cfscrape #bypass cf cookie (need https://pypi.org/project/cfscrape and nodejs installed)
 import requests
 
